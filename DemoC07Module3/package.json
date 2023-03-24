@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "audic": "^3.0.1",
+    "formidable": "^2.0.1",
+    "play-sound": "^1.1.5",
+    "qs": "^6.11.0",
+    "sound-play": "^1.1.0"
+  }
+}

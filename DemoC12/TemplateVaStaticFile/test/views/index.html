@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Testing file upload</title>
+</head>
+<body>
+
+<form action="" method="post">
+    <input type="file" id="fileButton" onchange="uploadImage(event)">
+    <input name="image" id="image" type="hidden">
+    <button type="submit">Upload</button>
+</form>
+<h1>Hello GFG</h1>
+<div id="imgDiv"></div>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyBhrBsAhtTgSMpwZXX98EXBAnAVfpKHSVA",
+        authDomain: "test-29d6c.firebaseapp.com",
+        projectId: "test-29d6c",
+        storageBucket: "test-29d6c.appspot.com",
+        messagingSenderId: "80282520556",
+        appId: "1:80282520556:web:cde5aaf6ed9e59b6ed8ec9",
+        measurementId: "G-R6Z3TKC520"
+    };
+    firebase.initializeApp(firebaseConfig);
+</script>
+
+<script type="text/javascript">
+    function uploadImage(e) {
+        let fbBucketName = 'images';
+        let uploader = document.getElementById('uploader');
+        let file = e.target.files[0];
+        let storageRef = firebase.storage().ref(`${fbBucketName}/${file.name}`);
+        let uploadTask = storageRef.put(file);
+        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+            function (snapshot) {
+                uploader.value = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                switch (snapshot.state) {
+                    case firebase.storage.TaskState.PAUSED:
+                        break;
+                    case firebase.storage.TaskState.RUNNING:
+                        break;
+                }
+            }, function (error) {
+                switch (error.code) {
+                    case 'storage/unauthorized':
+                        break;
+                    case 'storage/canceled':
+                        break;
+                    case 'storage/unknown':
+                        break;
+                }
+            }, function () {
+                let downloadURL = uploadTask.snapshot.downloadURL;
+                document.getElementById('imgDiv').innerHTML = `<img src="${downloadURL}" alt="">`
+                document.getElementById('image').value = downloadURL;
+                alert('Thành công')
+            });
+    }
+</script>
+
+</body>
+
+</html>

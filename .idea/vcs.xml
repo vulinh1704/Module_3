@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/C09" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/DemoC07Module3" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Module3C07/Module3DemoDatabase" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Module3C07/templateAndStaticFile/upload-image/NodeJS-Register-form-basic" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Module3C07/uploadImage" vcs="Git" />
+  </component>
+</project>

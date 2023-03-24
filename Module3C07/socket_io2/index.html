@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="float:left;width:100px;border-right:1px solid black;height:300px;padding:10px;overflow-y:scroll;">
+    <b>ROOMS</b>
+    <div id="rooms"></div>
+</div>
+
+<div style="float:left;width:300px;height:250px;overflow-y:scroll;padding:10px;">
+    <div id="conversation"></div>
+    <input id="data" style="width:200px;"/>
+    <input type="button" id="datasend" value="send" onclick="sendMessage()" />
+</div>
+<script src="https://cdn.socket.io/4.5.0/socket.io.min.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script>
+    let socket = io.connect('http://localhost:3000');
+    socket.on('connect', () => {
+        let name = prompt('Nhap ten cua ban : ');
+        let room = prompt('Nhap phong muon vo : ');
+        socket.emit('add-user', name, room);
+    });
+    socket.on('create-room', (room) => {
+        socket.emit('create', room);
+    })
+    socket.on('update-chat', (username, message) => {
+        $('#conversation').append('<b>' + username + ':</b> ' + message + '<br>');
+    });
+    socket.on('update-rooms', (rooms, currentRoom) => {
+        $('#rooms').empty();
+        rooms.map(room => {
+            if (room === currentRoom) {
+                $('#rooms').append(`<div>${room}</div>`)
+            } else {
+                $('#rooms').append('<div><a href="#" onclick="switchRoom(\''+room+'\')">' + room + '</a></div>');
+            }
+        })
+    });
+
+    function switchRoom(room) {
+        socket.emit('switch-room', room);
+    }
+
+    function sendMessage() {
+        let message = $('#data').val();
+        socket.emit('send-chat', message);
+        $('#data').val('');
+    }
+</script>
+</body>
+</html>

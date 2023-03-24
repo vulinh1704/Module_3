@@ -1,0 +1,8 @@
+{
+  "name": "Project3",
+  "version": "1.0.0",
+  "dependencies": {
+    "formidable": "^2.0.1",
+    "mysql": "^2.18.1"
+  }
+}
