@@ -1,0 +1,15 @@
+create database store;
+use store;
+create table categories(
+    id int primary key auto_increment,
+    name_category varchar(255) not null
+);
+
+create table products(
+    id int primary key auto_increment,
+    name_product varchar(255) not null,
+    price int default 0,
+    description text,
+    id_category int,
+    FOREIGN KEY (id_category) REFERENCES categories(id)
+)

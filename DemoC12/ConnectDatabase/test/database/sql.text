@@ -1,0 +1,16 @@
+create database manager;
+use manager;
+create table products (
+    id_product int auto_increment primary key,
+    name varchar(255) not null,
+    price int default 0,
+    description text,
+    id_category int,
+    foreign key (id_category) references categories(id)
+);
+
+
+create table categories(
+    id int auto_increment primary key,
+    name_category varchar(244)
+)
