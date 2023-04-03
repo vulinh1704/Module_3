@@ -1,7 +1,7 @@
 const fs = require('fs')
 const productService = require('../../service/productService');
 const categoryService = require('../../service/categoryService');
-
+const cookie = require('cookie')
 class ProductController {
     getHtmlProducts = (products, indexHtml) => {
         let productHtml = ''
@@ -21,12 +21,19 @@ class ProductController {
         return indexHtml;
     }
     showHome = (req, res) => {
-        fs.readFile('./view/index.html', 'utf-8', async (err, indexHtml) => {
-            let products = await productService.findAll();
-            indexHtml = this.getHtmlProducts(products, indexHtml);
-            res.write(indexHtml);
+        let cookies = cookie.parse(req.headers.cookie || '');
+        if(cookies.user) {
+            let user = JSON.parse(cookies.user);
+            fs.readFile('./view/index.html', 'utf-8', async (err, indexHtml) => {
+                let products = await productService.findAll();
+                indexHtml = this.getHtmlProducts(products, indexHtml);
+                res.write(indexHtml);
+                res.end();
+            })
+        } else {
+            res.writeHead(301, {location: '/'});
             res.end();
-        })
+        }
     }
     editProduct = (req, res, id) => {
         if (req.method === 'GET') {

@@ -1,7 +1,9 @@
 const productController = require('./handle/productController')
+const userController = require('./handle/userController');
 const router = {
     "home" : productController.showHome,
-    "edit" : productController.editProduct
+    "edit" : productController.editProduct,
+    "" : userController.login
 };
 
 module.exports = router

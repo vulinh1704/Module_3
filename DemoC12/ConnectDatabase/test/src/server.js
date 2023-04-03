@@ -1,6 +1,7 @@
 let http = require('http');
 let router = require('./controller/router')
 let handleError = require('./controller/handleRouter/errorController')
+
 let server = http.createServer((req, res) => {
     let url = req.url;
     let arrPath = url.split('/');
